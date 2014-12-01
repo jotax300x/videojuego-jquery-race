@@ -4,10 +4,23 @@ $coche = $('#coche');
 $calzada = $('#calzada');
 $calzada.width();
 $coche.position();
+$derecha = $('#derecha');
+$izquierda = $('#izquierda');
+var iLimDer = $calzada.position().left + $calzada.width() - $coche.width();
+
+$izquierda.hover(function() {
+	if ($coche.position().left > 0) {
+		$coche.css('left', '-=10px');
+	}
+});
+
+$derecha.hover(function() {
+	if ($coche.position().left < iLimDer) {
+		$coche.css('left', '+=10px');
+	}
+});
 
 $body.keydown(function(e) {
-	var iLimDer = $calzada.position().left + $calzada.width()
-	console.log(iLimDer + ' ' + $coche.position().left)
 	switch(e.which) {
 		case 39://Derecha
 			if ($coche.position().left < iLimDer) {
@@ -17,7 +30,10 @@ $body.keydown(function(e) {
 			} ;			
 		break;
 		case 37://Izquierda
-			$coche.css('left', '-=10px');		
+			if ($coche.position().left > 0) {
+				$coche.css('left', '-=10px');
+			}
+					
 		break;
 	}
 });
