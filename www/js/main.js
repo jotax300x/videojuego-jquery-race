@@ -1,19 +1,21 @@
 //Variables
 $body = $('body');
 $coche = $('#coche');
-$trafico = $('#trafico');
 $calzada = $('#calzada');
 $calzada.width();
 $calzada.height();
 $coche.position();
 $derecha = $('#derecha');
 $izquierda = $('#izquierda');
+var bJugando = true;
 var iLimDer = $calzada.position().left + $calzada.width() - $coche.width();
 var altoCalzada = $calzada.height();
+var $contrario = $('<div id="trafico"></div>');
+var $boton = $('<button id="boton">Reiniciar</button>');
 
 
-
-function crearTrafico() {
+function comprobarColision() {
+	$trafico = $('#trafico');	
 	var posTraficoTop = $trafico.position().top;
 	var posTraficoLeft = $trafico.position().left;
 	var limitInferiorTrafico = $trafico.position().top + $trafico.height();
@@ -21,21 +23,23 @@ function crearTrafico() {
 	var limitInferiorCoche = $coche.position().top + $coche.height();	
 	var posCocheTop = $coche.position().top;
 	var posCocheLeft = $coche.position().left;
-	var limitCocheD = $coche.position().left + $coche.width();
-	$trafico.css('display', 'inline-block');
-	$trafico.animate({top: altoCalzada}, 10000);
-	console.log(posTraficoTop + ' ' + posTraficoLeft);
-
+	var limitCocheD = $coche.position().left + $coche.width();	
 	if (limitInferiorTrafico > posCocheTop && posTraficoTop < limitInferiorCoche 
 		&& posTraficoLeft < limitCocheD && limittraficoD > posCocheLeft) {
-		console.log('Estan a la misma altura......................');
-		$trafico.stop().animate();
+		//console.log('Estan a la misma altura......................');
+		$trafico.stop();
+		if(bJugando == true) {
+			$calzada.append($boton);
+			bJugando = false;
+		}
 	};
-	if (true) {};
+	
 
 }
-
-//setInterval('crearTrafico()', 100);
+$calzada.append($contrario);
+$trafico = $('#trafico');
+$trafico.animate({top: altoCalzada}, 10000);
+setInterval('comprobarColision()', 100);
 
 $izquierda.hover(function() {
 	if ($coche.position().left > 0) {
