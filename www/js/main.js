@@ -29,13 +29,13 @@ function crearTrafico() {
 	if (limitInferiorTrafico > posCocheTop && posTraficoTop < limitInferiorCoche 
 		&& posTraficoLeft < limitCocheD && limittraficoD > posCocheLeft) {
 		console.log('Estan a la misma altura......................');
-		$trafico.stop();
+		$trafico.stop().animate();
 	};
 	if (true) {};
 
 }
 
-setInterval('crearTrafico()', 1);
+//setInterval('crearTrafico()', 100);
 
 $izquierda.hover(function() {
 	if ($coche.position().left > 0) {
